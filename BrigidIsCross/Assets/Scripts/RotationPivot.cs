@@ -13,7 +13,25 @@ public class RotationPivot : MonoBehaviour
     void Update()
     {
         {
-            Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
+            Vector2 screenPosition;
+
+            // MOBILE: use touch position when screen is being pressed
+            if (Touchscreen.current != null && Touchscreen.current.primaryTouch.press.isPressed)
+            {
+                screenPosition = Touchscreen.current.primaryTouch.position.ReadValue();
+            }
+            // DESKTOP: fallback to mouse position
+            else if (Mouse.current != null)
+            {
+                screenPosition = Mouse.current.position.ReadValue();
+            }
+            else
+            {
+                return;
+            }
+
+            Ray ray = mainCamera.ScreenPointToRay(screenPosition);
+
             if (Physics.Raycast(ray, out RaycastHit hit, 100f, groundLayer))
             {
                 Vector3 targetPosition = hit.point;
@@ -23,10 +41,16 @@ public class RotationPivot : MonoBehaviour
                 if (direction != Vector3.zero)
                 {
                     Quaternion lookRotation = Quaternion.LookRotation(direction);
-                    transform.rotation = Quaternion.Euler(0f, lookRotation.eulerAngles.y,  0f);
-
+                    transform.rotation = Quaternion.Euler(0f, lookRotation.eulerAngles.y, 0f);
                 }
-
+                else
+                {
+                    return;
+                }
+            }
+            else
+            {
+                return;
             }
         }
     }
