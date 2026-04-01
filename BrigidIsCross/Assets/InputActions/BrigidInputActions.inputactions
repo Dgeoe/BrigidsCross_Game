@@ -29,8 +29,19 @@
                 {
                     "name": "",
                     "id": "bc606112-6138-420d-8454-f60fcb4a6f0f",
-                    "path": "",
-                    "interactions": "",
+                    "path": "<Touchscreen>/primaryTouch/tap",
+                    "interactions": "Hold",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Touch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "162f2a56-e61a-4565-9072-eb86c5d34a70",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "Hold",
                     "processors": "",
                     "groups": "",
                     "action": "Touch",
