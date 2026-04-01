@@ -15,12 +15,10 @@ public class RotationPivot : MonoBehaviour
         {
             Vector2 screenPosition;
 
-            // MOBILE: use touch position when screen is being pressed
             if (Touchscreen.current != null && Touchscreen.current.primaryTouch.press.isPressed)
             {
                 screenPosition = Touchscreen.current.primaryTouch.position.ReadValue();
             }
-            // DESKTOP: fallback to mouse position
             else if (Mouse.current != null)
             {
                 screenPosition = Mouse.current.position.ReadValue();
