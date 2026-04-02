@@ -3,7 +3,6 @@ using UnityEngine;
 public class ProjectileLogic : MonoBehaviour
 {
     public float speed = 20f;
-    public float lifetime = 5f;
 
     private Vector3 direction;
     private Transform transform;
@@ -16,7 +15,6 @@ public class ProjectileLogic : MonoBehaviour
     public void Initialize(Vector3 dir)
     {
         direction = dir.normalized;
-        Destroy(gameObject, lifetime);
     }
 
     void FixedUpdate()
@@ -26,6 +24,41 @@ public class ProjectileLogic : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
+        if (collision.gameObject.CompareTag("Wall"))
+        {
+            Destroy();
+        }
+        else if (collision.gameObject.CompareTag("Enemy"))
+        {
+            //Activate Enemy Death Func
+            Destroy();   
+        }
+        else if (collision.gameObject.CompareTag("Barrell"))
+        {
+            //Activate Barrell water push Func
+            Destroy();   
+        }
+        else if (collision.gameObject.CompareTag("Bounce"))
+        {
+            // Get the normal of the surface  hit
+            Vector3 normal = collision.contacts[0].normal;
+            direction = Vector3.Reflect(direction, normal).normalized;
+        }  
+        else if (collision.gameObject.CompareTag("Bend"))
+        {
+            //set many paths
+            //set new path  
+        }
+        else
+        {
+            Destroy();
+        }     
+
+    }
+
+    private void Destroy()
+    {
+        //add animations here
         Destroy(gameObject);
     }
 }

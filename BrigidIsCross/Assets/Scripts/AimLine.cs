@@ -1,42 +1,77 @@
-using UnityEditor.ShaderGraph;
 using UnityEngine;
 
 public class AimLine : MonoBehaviour
 {
-   private LineRenderer lineRenderer;
+    //Summary:
+    //Draw LineRenderer from hit points to showcase aim line (kinda like in Angry Birds)
+    //Colors change if you hit enemies
+    //Line follows ricochet path 
+    //Update Heavy: Enabled from rotation pivot script only when neccessary
+    private LineRenderer lineRenderer;
 
-   [SerializeField] private Transform ThrowPoint; 
+    [SerializeField] private Transform ThrowPoint;
+
+    [SerializeField] private int maxBounces = 10;
+
     private void Awake()
     {
         lineRenderer = GetComponent<LineRenderer>();
+        lineRenderer.positionCount = maxBounces;
     }
 
     private void Update()
     {
-        lineRenderer.SetPosition(0, ThrowPoint.position);
-        RaycastHit hit;
+        Vector3 currentPosition = ThrowPoint.position;
+        Vector3 currentDirection = ThrowPoint.forward;
 
-        //if Hit Object set object position as line renderer position
-        //if not set line renderer to 100 (max distance) 
-        if (Physics.Raycast(ThrowPoint.position, ThrowPoint.TransformDirection(Vector3.forward), out hit, Mathf.Infinity))
+        lineRenderer.SetPosition(0, currentPosition);
+
+        for (int i = 1; i < maxBounces; i++)
         {
-            lineRenderer.SetPosition(1, hit.point);
-            if (hit.transform.gameObject.CompareTag("Enemy") == true)
+            RaycastHit hit;
+
+            if (Physics.Raycast(currentPosition, currentDirection, out hit, Mathf.Infinity))
             {
-                //set to red
+                lineRenderer.SetPosition(i, hit.point);
+
+                //Color Set
+                if (hit.transform.CompareTag("Enemy")) SetColor(Color.red);
+                else if (hit.transform.CompareTag("Barrell")) SetColor(Color.blue);
+                else SetColor(Color.white);
+
+                //Stop Here if no bounce hit
+                if (!hit.transform.CompareTag("Bounce"))
+                {
+                    FillRemaining(i, hit.point);
+                    break;
+                }
+
+                currentDirection = Vector3.Reflect(currentDirection, hit.normal);
+                currentPosition = hit.point + hit.normal * 0.05f;
             }
-            if (hit.transform.gameObject.CompareTag("Bounce"))
+            else
             {
-                //Create a richochet path with 3rd position 
-            }
-            if (hit.transform.gameObject.CompareTag("Barrell"))
-            {
-                //set to blue 
+                Vector3 endPoint = currentPosition + currentDirection * 10f;
+                lineRenderer.SetPosition(i, endPoint);
+
+                FillRemaining(i, endPoint);
+                break;
             }
         }
-        else
+    }
+
+    private void FillRemaining(int startIndex, Vector3 point)
+    {
+        //Set additional index positions to = last bounce hit
+        for (int i = startIndex + 1; i < maxBounces; i++)
         {
-            return;
+            lineRenderer.SetPosition(i, point);
         }
+    }
+
+    private void SetColor(Color color)
+    {
+        lineRenderer.startColor = color;
+        lineRenderer.endColor = color;
     }
 }

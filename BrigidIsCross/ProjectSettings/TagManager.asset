@@ -8,6 +8,8 @@ TagManager:
   - Enemy
   - Bounce
   - Barrell
+  - Wall
+  - Bend
   layers:
   - Default
   - TransparentFX
