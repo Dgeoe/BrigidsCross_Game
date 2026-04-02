@@ -3,7 +3,6 @@ using UnityEngine;
 public class ProjectileLogic : MonoBehaviour
 {
     public float speed = 20f;
-
     private Vector3 direction;
     private Transform transform;
     
@@ -31,7 +30,8 @@ public class ProjectileLogic : MonoBehaviour
         else if (collision.gameObject.CompareTag("Enemy"))
         {
             //Activate Enemy Death Func
-            Destroy();   
+            collision.gameObject.GetComponent<EnemyLogic>().Hit();
+            //Shuriken should pass through enemies for multi-hits  
         }
         else if (collision.gameObject.CompareTag("Barrell"))
         {
