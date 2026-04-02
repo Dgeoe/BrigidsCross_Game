@@ -35,7 +35,7 @@ When hitting surfaces tagged as “Bounce,” the direction is reflected to simu
 The line also changes color depending on what it intersects, such as enemies, barrels, etc, providing immediate visual feedback to the player.  <br/>
 (Photo of Color Changing)
 <br/> <br/>
-## Collaborators:
+## Credits:
 [**Joe O'Shea**](https://dgeoe.itch.io/) - Programmer <br/>
 [**Cian Fitzpatrick**](https://rockyhorrorfreakshow.itch.io/) - Fill in task <br/>
 [**Daniel Moure**](https://dmotz.itch.io/) - Fill in task <br/>
