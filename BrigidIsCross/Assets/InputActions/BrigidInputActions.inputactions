@@ -1,0 +1,66 @@
+{
+    "version": 1,
+    "name": "BrigidInputActions",
+    "maps": [
+        {
+            "name": "PlayerBase",
+            "id": "cc0a9d7a-9336-4ef7-ac47-bf8eeb87859b",
+            "actions": [
+                {
+                    "name": "Touch",
+                    "type": "Button",
+                    "id": "180b6c03-ce3d-4d17-addf-d12b51eb80bf",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Look",
+                    "type": "Value",
+                    "id": "368efe2f-9033-47ae-a736-9a402fdf52b7",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "bc606112-6138-420d-8454-f60fcb4a6f0f",
+                    "path": "<Touchscreen>/primaryTouch/tap",
+                    "interactions": "Hold",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Touch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "162f2a56-e61a-4565-9072-eb86c5d34a70",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "Hold",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Touch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6661f5c3-830d-4e19-855f-36db935a48f4",
+                    "path": "<Mouse>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Look",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
