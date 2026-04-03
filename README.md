@@ -26,7 +26,7 @@ This script manages the behavior of each thrown shuriken. Once initialized with 
 ### Creating a Dashed Line Renderer for Aiming in Unity
 ![Gameplay Gif](ReadMe_Images/LineRendererShowcase.gif) <br/>
 <br/>
-This was the one area where I actually ran into some trouble implementing a mechanic, mainly because I first looked online, and everyone is **WAY** overcomplicating the process. First off, to achieve that dashed look seen above, you're going to want to **add an image like [this]**(https://github.com/Dgeoe/BrigidsCross_Game/blob/Joe's_Branch/BrigidIsCross/Assets/Materials/DashedLine.png) onto a Material's **Albedo Map**. Then, and this is important, apply these exact settings to said material in the Inspector. <br/><br/>
+This was the one area where I actually ran into some trouble implementing a mechanic, mainly because I first looked online, and everyone is **WAY** overcomplicating the process. First off, to achieve that dashed look seen above, you're going to want to **add an image like [this](https://github.com/Dgeoe/BrigidsCross_Game/blob/Joe's_Branch/BrigidIsCross/Assets/Materials/DashedLine.png)** onto a Material's **Albedo Map**. Then, and this is important, apply these exact settings to said material in the Inspector. <br/><br/>
 ![Inspector](ReadMe_Images/DashedLineMaterialInspectorView.png) 
 <br/> <br/>
 This allows the line to be displayed as you intended while still allowing you to alter its alpha values and color in the Line Renderer's inspector. **Make sure the shader is Unlit**, as otherwise Unity will wash out its colours. <br/> 
