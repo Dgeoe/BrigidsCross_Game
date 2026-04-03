@@ -40,7 +40,7 @@ public class ProjectileLogic : MonoBehaviour
         }
         else if (collision.gameObject.CompareTag("Bounce"))
         {
-            // Get the normal of the surface  hit
+            // Get the normal of the surface hit
             Vector3 normal = collision.contacts[0].normal;
             direction = Vector3.Reflect(direction, normal).normalized;
         }  

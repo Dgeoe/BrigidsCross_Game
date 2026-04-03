@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 public class RotationPivot : MonoBehaviour
 {
     // Player rotates their aim based off their mouse or touch screen location
-    //As long as your mouse is over an object on the layer "Ground" the player will rotate towards it
+    // As long as your mouse is over an object on the layer "Ground" the player will rotate towards it
 
     [SerializeField] Camera mainCamera;
     [SerializeField] LayerMask groundLayer;
