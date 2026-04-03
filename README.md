@@ -15,10 +15,11 @@ This game is a **skill-based, top-down action puzzler** where the player is fixe
 Scripting was kept both simple and short during the project, since the main focus was on creating multiple puzzle levels, it was important to have code that was readable for all team members and easily alterable. 
 
 • **RotationPivot.cs** <br/>
-Rotates the player to face the mouse or touch position by raycasting onto the ground layer and aligning the player’s forward direction toward the hit point.
+Rotates the player to face the mouse or touch position by raycasting onto the ground layer and aligning the player’s forward direction toward the hit point. <br/> <br/>
 
 • **Throw.cs** <br/>
-Handles player input for throwing shurikens. When the player presses, the throw point is shown (activating AimLine.cs); on release, a projectile is fired in the forward direction using a raycast to determine its path.
+Handles player input for throwing shurikens. When the player presses, the throw point is shown (activating AimLine.cs); on release, a projectile is fired in the forward direction using a raycast to determine its path. This method of touch and hold to aim and release to fire was used so mechanics match up both on desktop and mobile (where you can't detect where a finger is hovering like you can the mouse cursor).<br/><br/>
+- It was important to avoid using any rigid-body physics since a requirement for the college assignment was to have the game run on WebGL; currently, Unity 6 is inconsistent in how physics are calculated between Editor & Web, and since accuracy is the point of the game, hard-coding in ray-casted target paths for projectiles to follow was the way to go!  <br/> <br/>
 
 • **ProjectileLogic.cs** <br/>
 This script manages the behavior of each thrown shuriken. Once initialized with a direction, the shuriken continuously moves forward at a fixed speed using FixedUpdate. It handles different collision outcomes based on object tags: enemies take damage while allowing the shuriken to pass through, bounce surfaces reflect the shurikens’ direction using the collision normal, and other objects like walls cause the shurikens to be destroyed. 
