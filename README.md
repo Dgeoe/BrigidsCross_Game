@@ -2,13 +2,13 @@
 [Name is in progress] [Logo is in progress]
 
 ## Overview
-This game is a skill-based, top-down action puzzler where the player is fixed at the center of the screen and rotates to face the mouse cursor. The objective is to eliminate all enemies on a grid using a limited number of shuriken throws. Shurikens bounce off walls and obstacles, allowing for creative angles and chain reactions. Success depends on precision, planning, and making the most out of every throw to clear each level as efficiently as possible.
+This game is a **skill-based, top-down action puzzler** where the player is fixed at the center of the screen and rotates to face the mouse cursor. The objective is to eliminate all enemies on a grid using a limited number of shuriken throws. Shurikens bounce off walls and obstacles, allowing for creative angles and chain reactions. Success depends on precision, planning, and making the most out of every throw to clear each level as efficiently as possible.
 
 (Insert Gameplay Video or GIF here)
 
 [GameName] was made for a college assignment in collaboration with the [**Diagra 2026 Conference**](https://www.digraconference2026.com/).
 
-### Install/Play:
+### Play Here:
 [**Itch.io**](https://dgeoe.itch.io/) (Works on Desktop & Mobile!)
 
 ## Script Breakdown
@@ -18,16 +18,18 @@ Scripting was kept both simple and short during the project, since the main focu
 Rotates the player to face the mouse or touch position by raycasting onto the ground layer and aligning the player’s forward direction toward the hit point.
 
 • **Throw.cs** <br/>
-Handles player input for throwing shurikens. When the player presses input, the throw point is shown (activating AimLine.cs); on release, a projectile is fired in the forward direction using a raycast to determine its path.
+Handles player input for throwing shurikens. When the player presses, the throw point is shown (activating AimLine.cs); on release, a projectile is fired in the forward direction using a raycast to determine its path.
 
 • **ProjectileLogic.cs** <br/>
-This script manages the behavior of each thrown shuriken. Once initialized with a direction, the projectile continuously moves forward at a fixed speed using FixedUpdate. It handles different collision outcomes based on object tags: enemies take damage while allowing the shuriken to pass through, bounce surfaces reflect the projectile’s direction using the collision normal, and other objects like walls cause the projectile to be destroyed. 
+This script manages the behavior of each thrown shuriken. Once initialized with a direction, the shuriken continuously moves forward at a fixed speed using FixedUpdate. It handles different collision outcomes based on object tags: enemies take damage while allowing the shuriken to pass through, bounce surfaces reflect the shurikens’ direction using the collision normal, and other objects like walls cause the shurikens to be destroyed. 
 
 ### Creating a Dashed Line Renderer for Aiming in Unity
-(Photo of Line) <br/>
-This was the one area where I actually ran into some trouble implementing a mechanic, mainly because I first looked online, and everyone is WAY overcomplicating the process. First off, to achieve that dashed look seen above, you're going to want to add an image like [this](https://github.com/Dgeoe/BrigidsCross_Game/blob/Joe's_Branch/BrigidIsCross/Assets/Materials/DashedLine.png) onto a Material's Albedo Map. Then, and this is important, apply these exact settings to said material in the inspector. <br/>
-(Photo of Unity inspector) <br/>
-This allows the line to be displayed as you intended while still allowing you to alter its alpha values and color in the Line Renderer's inspector. Make sure the shader is Unlit, as otherwise Unity will wash out its colours. <br/>
+![Gameplay Gif](ReadMe_Images/LineRendererShowcase.gif) <br/>
+<br/>
+This was the one area where I actually ran into some trouble implementing a mechanic, mainly because I first looked online, and everyone is **WAY** overcomplicating the process. First off, to achieve that dashed look seen above, you're going to want to **add an image like [this]**(https://github.com/Dgeoe/BrigidsCross_Game/blob/Joe's_Branch/BrigidIsCross/Assets/Materials/DashedLine.png) onto a Material's **Albedo Map**. Then, and this is important, apply these exact settings to said material in the Inspector. <br/><br/>
+![Inspector](ReadMe_Images/DashedLineMaterialInspectorView.png) 
+<br/> <br/>
+This allows the line to be displayed as you intended while still allowing you to alter its alpha values and color in the Line Renderer's inspector. **Make sure the shader is Unlit**, as otherwise Unity will wash out its colours. <br/> 
 
 To get the line render to follow a given path, you'll want to sub in your Vector 3 target position into:
 ```csharp
@@ -36,9 +38,9 @@ lineRenderer.SetPosition(Index Position, Vector3)
 For a further breakdown of the actual script, you can read below. <br/><br/>
 
 • **AimLine.cs** <br/>
-Visualize the projected path of a thrown shuriken, including multiple ricochets. Starting from the throw point, it repeatedly casts rays in the current direction, updating each segment of the line to match where the projectile would travel and bounce. <br/>
-(Photo of Bounce) <br/> <br/>
-When hitting surfaces tagged as “Bounce,” the direction is reflected to simulate ricochet behavior, continuing up to a set number of bounces. To achieve this, I first had to set a total number of positions in the line renderers index. Each time you hit bounce, you iterate through all the unused segments in the index and fill them with the final point to keep the line consistent.<br/>
+Visualizes the projected path of a thrown shuriken, including multiple ricochets. Starting from the throw point, it repeatedly casts rays in the current direction, updating each segment of the line to match where the projectile would travel and bounce. <br/>
+![Bounce](ReadMe_Images/BounceVisual.png) <br/> <br/>
+When hitting surfaces tagged as “**Bounce**,” the direction is reflected to simulate ricochet behavior, continuing up to a set number of bounces. To achieve this, I first had to set a total number of positions in the line renderers index. Each time you hit bounce, you iterate through all the unused segments in the index and fill them with the final point to keep the line consistent.<br/>
 ### Bounce Logic
 ```csharp
 private void Update()
@@ -95,9 +97,9 @@ private void FillRemaining(int startIndex, Vector3 point)
     }
 }
 ```
-<br/>
-The line also changes color depending on what it intersects, such as enemies, barrels, etc, providing immediate visual feedback to the player.  <br/>
-(Photo of Color Changing)
+---------------------------
+The line also changes colour depending on what it intersects, such as enemies, barrels, etc, providing immediate visual feedback to the player. <br/> <br/>
+![Colour](ReadMe_Images/ColourChangeVisual.png)
 <br/> <br/>
 ## Credits:
 [**Joe O'Shea**](https://dgeoe.itch.io/) - Programmer <br/>
