@@ -14,14 +14,14 @@ This game is a **skill-based, top-down action puzzler** where the player is fixe
 ## Script Breakdown
 Scripting was kept both simple and short during the project, since the main focus was on creating multiple puzzle levels, it was important to have code that was readable for all team members and easily alterable. 
 
-• **RotationPivot.cs** <br/>
+• **RotationPivot.cs**  [[->]](https://github.com/Dgeoe/BrigidsCross_Game/blob/main/BrigidIsCross/Assets/Scripts/RotationPivot.cs) <br/>
 Rotates the player to face the mouse or touch position by raycasting onto the ground layer and aligning the player’s forward direction toward the hit point. <br/> <br/>
 
-• **Throw.cs** <br/>
+• **Throw.cs**  [[->]](https://github.com/Dgeoe/BrigidsCross_Game/blob/main/BrigidIsCross/Assets/Scripts/Throw.cs) <br/>
 Handles player input for throwing shurikens. When the player presses, the throw point is shown (activating AimLine.cs); on release, a projectile is fired in the forward direction using a raycast to determine its path. This method of touch and hold to aim and release to fire was used so mechanics match up both on desktop and mobile (where you can't detect where a finger is hovering like you can the mouse cursor).<br/><br/>
 - It was important to avoid using any rigid-body physics since a requirement for the college assignment was to have the game run on WebGL; currently, Unity 6 is inconsistent in how physics are calculated between Editor & Web, and since accuracy is the point of the game, hard-coding in ray-casted target paths for projectiles to follow was the way to go!  <br/> <br/>
 
-• **ProjectileLogic.cs** <br/>
+• **ProjectileLogic.cs**  [[->]](https://github.com/Dgeoe/BrigidsCross_Game/blob/main/BrigidIsCross/Assets/Scripts/ProjectileLogic.cs) <br/>
 This script manages the behavior of each thrown shuriken. Once initialized with a direction, the shuriken continuously moves forward at a fixed speed using FixedUpdate. It handles different collision outcomes based on object tags: enemies take damage while allowing the shuriken to pass through, bounce surfaces reflect the shurikens’ direction using the collision normal, and other objects like walls cause the shurikens to be destroyed. 
 
 ### Creating a Dashed Line Renderer for Aiming in Unity
@@ -38,7 +38,7 @@ lineRenderer.SetPosition(Index Position, Vector3)
 ```
 For a further breakdown of the actual script, you can read below. <br/><br/>
 
-• **AimLine.cs** <br/>
+• **AimLine.cs**  [[->]](https://github.com/Dgeoe/BrigidsCross_Game/blob/main/BrigidIsCross/Assets/Scripts/AimLine.cs)<br/>
 Visualizes the projected path of a thrown shuriken, including multiple ricochets. Starting from the throw point, it repeatedly casts rays in the current direction, updating each segment of the line to match where the projectile would travel and bounce. <br/>
 ![Bounce](ReadMe_Images/BounceVisual.png) <br/> <br/>
 When hitting surfaces tagged as “**Bounce**,” the direction is reflected to simulate ricochet behavior, continuing up to a set number of bounces. To achieve this, I first had to set a total number of positions in the line renderers index. Each time you hit bounce, you iterate through all the unused segments in the index and fill them with the final point to keep the line consistent.<br/>
