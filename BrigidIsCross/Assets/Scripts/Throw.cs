@@ -9,12 +9,18 @@ public class Throw : MonoBehaviour
     [SerializeField] private Transform firePoint;
     [SerializeField] private Camera mainCamera;
     [SerializeField] private LayerMask groundLayer;
+    [SerializeField] public int shurikens;
+    public static Throw Instance;
 
     private BrigidInputActions inputActions;
 
     private void Awake()
     {
         inputActions = new BrigidInputActions();
+        if (Instance == null)
+        {
+            Instance = this;
+        }
     }
     private void OnEnable()
     {
@@ -33,17 +39,18 @@ public class Throw : MonoBehaviour
     private void OnPress(InputAction.CallbackContext ctx)
     {
         //Enable Throw Point
-        firePoint.gameObject.SetActive(true);
+        if (shurikens > 0) firePoint.gameObject.SetActive(true);
     }
     private void OnRelease(InputAction.CallbackContext ctx)
     {
         //Fire Projectile
-        Shoot();
-        firePoint.gameObject.SetActive(false);
+        if (shurikens > 0) Shoot();
     }
 
     private void Shoot()
     {
+        shurikens --;
+        firePoint.gameObject.SetActive(false);
         RaycastHit hit;
         Vector3 targetPoint;
 
