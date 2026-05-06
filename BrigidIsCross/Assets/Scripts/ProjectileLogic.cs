@@ -4,12 +4,12 @@ public class ProjectileLogic : MonoBehaviour
 {
     public float speed = 20f;
     private Vector3 direction;
-    private Transform transform;
+    private Transform localTransform;
     
     public void Awake()
     {
-        transform = GetComponent<Transform>();
-        transform.rotation = Quaternion.Euler(90f, 0f, 0f);
+        localTransform = GetComponent<Transform>();
+        localTransform.rotation = Quaternion.Euler(90f, 0f, 0f);
     }
     public void Initialize(Vector3 dir)
     {
@@ -18,7 +18,7 @@ public class ProjectileLogic : MonoBehaviour
 
     void FixedUpdate()
     {
-        transform.position += direction * speed * Time.fixedDeltaTime;
+        localTransform.position += direction * speed * Time.fixedDeltaTime;
     }
 
     void OnCollisionEnter(Collision collision)

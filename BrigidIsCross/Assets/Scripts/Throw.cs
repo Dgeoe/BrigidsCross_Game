@@ -1,6 +1,7 @@
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.EventSystems;
 
 public class Throw : MonoBehaviour
 {
@@ -38,11 +39,18 @@ public class Throw : MonoBehaviour
 
     private void OnPress(InputAction.CallbackContext ctx)
     {
+        if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject()) return;
+        //if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject(Touchscreen.current.primaryTouch.touchId.ReadValue())) return;
+
         //Enable Throw Point
         if (shurikens > 0) firePoint.gameObject.SetActive(true);
     }
+
     private void OnRelease(InputAction.CallbackContext ctx)
     {
+        if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject()) return;
+        //if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject(Touchscreen.current.primaryTouch.touchId.ReadValue())) return;
+
         //Fire Projectile
         if (shurikens > 0) Shoot();
     }
@@ -50,6 +58,7 @@ public class Throw : MonoBehaviour
     private void Shoot()
     {
         shurikens --;
+        Destroy(ProjectileCount.Instance.crosses[shurikens]);
         firePoint.gameObject.SetActive(false);
         RaycastHit hit;
         Vector3 targetPoint;
