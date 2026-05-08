@@ -21,11 +21,13 @@ public class ScenePlayer : MonoBehaviour
     public void LevelSelectButton()
     {
         buttonAnimator.SetBool("pressMain", true);
+        StartCoroutine(turnOnAfter(LevelSelect));
     }
 
     public void SettingsButton()
     {
         buttonAnimator.SetBool("pressMain", true);
+        StartCoroutine(turnOnAfter(Settings));
     }
 
     public void CreditsButton()
