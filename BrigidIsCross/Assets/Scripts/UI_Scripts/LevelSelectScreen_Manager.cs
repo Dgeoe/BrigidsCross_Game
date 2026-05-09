@@ -38,7 +38,7 @@ public class LevelSelectScreen_Manager : MonoBehaviour
 
             string scenePath = SceneUtility.GetScenePathByBuildIndex(i);
             string sceneName = System.IO.Path.GetFileNameWithoutExtension(scenePath);
-            buttonObj.name = sceneName + "Button";
+            buttonObj.name = sceneName;
         }
     }
 }
