@@ -5,6 +5,7 @@ public class ProjectileLogic : MonoBehaviour
     public float speed = 20f;
     private Vector3 direction;
     private Transform localTransform;
+    [SerializeField] private GameObject particleSystem;
     
     public void Awake()
     {
@@ -25,6 +26,7 @@ public class ProjectileLogic : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Wall"))
         {
+            PlayParticle(collision);
             Destroy();
         }
         else if (collision.gameObject.CompareTag("Enemy"))
@@ -35,11 +37,13 @@ public class ProjectileLogic : MonoBehaviour
         }
         else if (collision.gameObject.CompareTag("Barrell"))
         {
+            PlayParticle(collision);
             //Activate Barrell water push Func
             Destroy();   
         }
         else if (collision.gameObject.CompareTag("Bounce"))
         {
+            PlayParticle(collision);
             // Get the normal of the surface hit
             Vector3 normal = collision.contacts[0].normal;
             direction = Vector3.Reflect(direction, normal).normalized;
@@ -60,5 +64,15 @@ public class ProjectileLogic : MonoBehaviour
     {
         //add animations here
         Destroy(gameObject);
+    }
+
+    private void PlayParticle(Collision collision)
+    {
+        //For bounce debris
+        ContactPoint contact = collision.contacts[0];
+        Vector3 hitPoint = contact.point;
+        Quaternion rotation = Quaternion.LookRotation(contact.normal);
+
+        Instantiate(particleSystem, hitPoint, rotation);
     }
 }

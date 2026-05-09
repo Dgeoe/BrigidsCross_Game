@@ -107,6 +107,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ProjectileLogic
   speed: 30
+  particleSystem: {fileID: 3761670621287030690, guid: a97c7a3d0d9fbd84482b8c0525aa574f, type: 3}
 --- !u!54 &755958397135972647
 Rigidbody:
   m_ObjectHideFlags: 0
