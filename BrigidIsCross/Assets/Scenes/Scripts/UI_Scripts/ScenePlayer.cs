@@ -15,17 +15,19 @@ public class ScenePlayer : MonoBehaviour
     {
         buttonAnimator.SetBool("pressMain", true);
         cameraAnimator.SetBool("zoom", true);
-        StartCoroutine(PlayScene("Demo"));
+        StartCoroutine(PlayScene("Puzzle 1 Tutorial"));
     }
 
     public void LevelSelectButton()
     {
         buttonAnimator.SetBool("pressMain", true);
+        StartCoroutine(turnOnAfter(LevelSelect));
     }
 
     public void SettingsButton()
     {
         buttonAnimator.SetBool("pressMain", true);
+        StartCoroutine(turnOnAfter(Settings));
     }
 
     public void CreditsButton()
