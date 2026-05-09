@@ -1,7 +1,8 @@
 using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.InputSystem;
+using UnityEngine.Audio;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 
 public class Throw : MonoBehaviour
 {
@@ -14,7 +15,10 @@ public class Throw : MonoBehaviour
     public static Throw Instance;
 
     private BrigidInputActions inputActions;
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip throwSound;
 
+    
     private void Awake()
     {
         inputActions = new BrigidInputActions();
@@ -22,6 +26,9 @@ public class Throw : MonoBehaviour
         {
             Instance = this;
         }
+
+        if (audioSource == null) gameObject.AddComponent<AudioSource>();
+        audioSource = GetComponent<AudioSource>();
     }
     private void OnEnable()
     {
@@ -75,5 +82,10 @@ public class Throw : MonoBehaviour
         Vector3 direction = (targetPoint - firePoint.position).normalized;
         GameObject projectile = Instantiate(projectilePrefab, firePoint.position, Quaternion.identity);
         projectile.GetComponent<ProjectileLogic>().Initialize(direction);
+
+        //PLAY THROW SOUND (protein tubes *beep* with that white sauce *beep*)
+        audioSource.volume = audioSource.volume - 0.3f;
+        if (audioSource.volume <= 0) audioSource.volume = 0.3f;
+        audioSource.PlayOneShot(throwSound);
     }
 }
