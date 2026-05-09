@@ -17,7 +17,7 @@ public class Throw : MonoBehaviour
     private BrigidInputActions inputActions;
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip throwSound;
-
+    [SerializeField] private Animator animator;
     
     private void Awake()
     {
@@ -51,10 +51,12 @@ public class Throw : MonoBehaviour
 
         //Enable Throw Point
         if (shurikens > 0) firePoint.gameObject.SetActive(true);
+        animator.SetBool("Aiming", true);
     }
 
     private void OnRelease(InputAction.CallbackContext ctx)
     {
+        animator.SetBool("Aiming", false);
         if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject()) return;
         //if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject(Touchscreen.current.primaryTouch.touchId.ReadValue())) return;
 
@@ -64,6 +66,7 @@ public class Throw : MonoBehaviour
 
     private void Shoot()
     {
+        animator.SetBool("Aiming", true);
         shurikens --;
         Destroy(ProjectileCount.Instance.crosses[shurikens]);
         firePoint.gameObject.SetActive(false);
@@ -87,5 +90,7 @@ public class Throw : MonoBehaviour
         audioSource.volume = audioSource.volume - 0.3f;
         if (audioSource.volume <= 0) audioSource.volume = 0.3f;
         audioSource.PlayOneShot(throwSound);
+        animator.SetTrigger("Throw");
+        animator.SetBool("Aiming", false);
     }
 }
