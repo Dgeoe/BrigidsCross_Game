@@ -9,7 +9,7 @@ public class EnemyLogic : MonoBehaviour
     private void Awake()
     {
         //add delay to the idle so kick is not triggered at same time by all enemies
-        float index = Random.Range(0.1f, 1.3f);
+        float index = Random.Range(0.1f, 2f);
         StartCoroutine(Delay(index));
     }
 
