@@ -10,10 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 5525365261302245124}
   - component: {fileID: 5446889973006399110}
-  - component: {fileID: 8065801691732405529}
   - component: {fileID: 755958397135972647}
   - component: {fileID: 4244395582432522667}
   - component: {fileID: 1940755568143042682}
+  - component: {fileID: 1497520466715752303}
   m_Layer: 0
   m_Name: Projectile
   m_TagString: Player
@@ -95,25 +95,6 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!114 &8065801691732405529
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 850848355821673237}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 251b8f1237fc2f5479e905c3efe283cd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ProjectileLogic
-  speed: 30
-  particleSystem: {fileID: 3761670621287030690, guid: a97c7a3d0d9fbd84482b8c0525aa574f, type: 3}
-  audioSource: {fileID: 1940755568143042682}
-  sounds:
-  - {fileID: 8300000, guid: e47cd576acffa4f4ba61248a7e1d840e, type: 3}
-  - {fileID: 8300000, guid: 53bf2bae9017f004f909532e3bd2a83a, type: 3}
-  - {fileID: 8300000, guid: f9d85350dc7efea4585cb660bb300a9c, type: 3}
 --- !u!54 &755958397135972647
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -259,3 +240,22 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1497520466715752303
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 850848355821673237}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7c91857f0fac1f4da4443c346777482, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ProjectileLogic
+  speed: 20
+  particleSystem: {fileID: 3761670621287030690, guid: a97c7a3d0d9fbd84482b8c0525aa574f, type: 3}
+  audioSource: {fileID: 1940755568143042682}
+  sounds:
+  - {fileID: 8300000, guid: e47cd576acffa4f4ba61248a7e1d840e, type: 3}
+  - {fileID: 8300000, guid: 53bf2bae9017f004f909532e3bd2a83a, type: 3}
+  - {fileID: 8300000, guid: f9d85350dc7efea4585cb660bb300a9c, type: 3}
