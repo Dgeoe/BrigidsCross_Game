@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/CurrentBuildScenes/Puzzle 2 Tutorial.unity
     guid: 490b21455d67fc945b48e93f4ddf5865
+  - enabled: 1
+    path: Assets/Scenes/CurrentBuildScenes/Thanks for playing!.unity
+    guid: 1d03e7107ad83f9438534e5de1cf48ee
   m_configObjects: {}
