@@ -63,7 +63,9 @@ public class ProjectileLogic : MonoBehaviour
         else
         {
             Destroy();
-        }     
+        }
+
+        EndGame_Manager.Instance.ThrowCheck();
 
     }
 
