@@ -67,8 +67,8 @@ public class ProjectileLogic : MonoBehaviour
             Destroy();
         }
 
-        if (inOne == false) EndGame_Manager.Instance.ThrowCheck();
-        inOne = true;
+        //if (inOne == false) EndGame_Manager.Instance.ThrowCheck();
+        //inOne = true;
 
     }
 

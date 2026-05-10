@@ -52,6 +52,8 @@ public class Throw : MonoBehaviour
         //Enable Throw Point
         if (shurikens > 0) firePoint.gameObject.SetActive(true);
         animator.SetBool("Aiming", true);
+
+        if (shurikens == 0) EndGame_Manager.Instance.ThrowCheck();
     }
 
     private void OnRelease(InputAction.CallbackContext ctx)
@@ -61,7 +63,11 @@ public class Throw : MonoBehaviour
         //if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject(Touchscreen.current.primaryTouch.touchId.ReadValue())) return;
 
         //Fire Projectile
-        if (shurikens > 0) Shoot();
+        if (shurikens > 0)
+        {
+            Shoot();
+            EndGame_Manager.Instance.ThrowCheck();
+        }
     }
 
     private void Shoot()

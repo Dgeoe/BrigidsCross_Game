@@ -42,7 +42,7 @@ public class EndGame_Manager : MonoBehaviour
     {
         currentThrows++;
 
-        if (currentThrows == mostThrows)
+        if (currentThrows == mostThrows + 1)
         {
             Debug.Log("Lose");
             score = 0;
