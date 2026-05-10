@@ -1,9 +1,11 @@
 using UnityEngine;
+using System.Collections;
 
 public class ProjectileLogic : MonoBehaviour
 {
     public float speed = 20f;
     private Vector3 direction;
+    private bool inOne = false;
     private Transform localTransform;
     [SerializeField] private GameObject particleSystem;
     [SerializeField] private AudioSource audioSource;
@@ -65,7 +67,8 @@ public class ProjectileLogic : MonoBehaviour
             Destroy();
         }
 
-        EndGame_Manager.Instance.ThrowCheck();
+        if (inOne == false) EndGame_Manager.Instance.ThrowCheck();
+        inOne = true;
 
     }
 
@@ -82,7 +85,8 @@ public class ProjectileLogic : MonoBehaviour
         Vector3 hitPoint = contact.point;
         Quaternion rotation = Quaternion.LookRotation(contact.normal);
 
-        Instantiate(particleSystem, hitPoint, rotation);
+        GameObject x = Instantiate(particleSystem, hitPoint, rotation);
+        StartCoroutine(DestroyDebris(x));
     }
 
     private void RandomSound()
@@ -90,5 +94,13 @@ public class ProjectileLogic : MonoBehaviour
         int index = Random.Range(1, sounds.Length);
 
         audioSource.PlayOneShot(sounds[index]);
+    }
+
+    private IEnumerator DestroyDebris(GameObject g)
+    {
+        yield return new WaitForSeconds(1f);
+        {
+            Destroy(g);
+        }
     }
 }
