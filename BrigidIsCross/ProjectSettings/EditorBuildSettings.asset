@@ -6,9 +6,18 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Menu.unity
-    guid: 0a24cbd1c9d27fb48a25b01fef3d2afa
+    path: Assets/Scenes/CurrentBuildScenes/DeviceCheck.unity
+    guid: ba2db3b1c946ff449afe388b1443324e
   - enabled: 1
-    path: Assets/Scenes/Puzzle 1.unity
-    guid: 931334dce4563db43898a91967717d22
+    path: Assets/Scenes/CurrentBuildScenes/Menu.unity
+    guid: 09ab5cd912b52704c9042f0242a1c072
+  - enabled: 1
+    path: Assets/Scenes/CurrentBuildScenes/Puzzle 1 Tutorial.unity
+    guid: d9b583caa2f3d51419cc2e72c3c3f839
+  - enabled: 1
+    path: Assets/Scenes/CurrentBuildScenes/Puzzle 1.unity
+    guid: c0164bec9ea7cd040bc3bc8261f244d6
+  - enabled: 1
+    path: Assets/Scenes/CurrentBuildScenes/Puzzle 2 Tutorial.unity
+    guid: 490b21455d67fc945b48e93f4ddf5865
   m_configObjects: {}

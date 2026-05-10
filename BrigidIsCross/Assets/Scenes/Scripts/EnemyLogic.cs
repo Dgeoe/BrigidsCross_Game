@@ -18,6 +18,7 @@ public class EnemyLogic : MonoBehaviour
     {
         //add animation and sfx here
         animator.SetTrigger("Hit");
+        EndGame_Manager.Instance.Kill();
     }
 
     private IEnumerator Delay(float seconds)
