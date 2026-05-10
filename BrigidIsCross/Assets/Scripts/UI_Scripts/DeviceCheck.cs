@@ -16,31 +16,15 @@ public class DeviceCheck : MonoBehaviour
     }
     public void ContinueGame()
     {
-
-        #if UNITY_WEBGL && !UNITY_EDITOR
-
-                bool isMobile =
-                    Application.platform == RuntimePlatform.WebGLPlayer &&
-                    (SystemInfo.deviceType == DeviceType.Handheld);
-
-                if (isMobile)
-                {
-                    if (mobileMessageObject != null)
-                    {
-                        mobileMessageObject.SetActive(true);
-                    }
-
-                    StartCoroutine(LoadNextSceneAfterDelay());
-                }
-                else
-                {
-                    LoadNextScene();
-                }
-
-        #else
-                // Non-WebGL
-                LoadNextScene();
-        #endif
+        bool isMobile = Application.isMobilePlatform;
+        if (isMobile)
+        {
+            StartCoroutine(LoadNextSceneAfterDelay());
+        }
+        else
+        {
+            LoadNextScene();
+        }
     }
 
     private IEnumerator LoadNextSceneAfterDelay()

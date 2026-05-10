@@ -9,13 +9,19 @@ public class TriggerEvents : MonoBehaviour
     // Create unity events for trigger actions
     public UnityEvent enteredTrigger, exitedTrigger, stayInTrigger, completedTimer; // Create unity events for trigger actions
     private float timer = 3;
+    [SerializeField] private Animator animator;
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip[] clips;
     // On Trigger enter
     void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Player")
         {
+            animator.SetTrigger("Hit");
             enteredTrigger.Invoke();
             Debug.Log("Entered Trigger");
+            audioSource.PlayOneShot(clips[0]);
+            StartCoroutine(PlayPucaSound());
         }
     }
 
@@ -43,5 +49,12 @@ public class TriggerEvents : MonoBehaviour
             timer = 3;
             Debug.Log("Exited Trigger");
         }
+    }
+
+    private IEnumerator PlayPucaSound()
+    {
+        yield return new WaitForSeconds(0.7f);
+        audioSource.pitch = 0.7f;
+        audioSource.PlayOneShot(clips[1]);
     }
 }
