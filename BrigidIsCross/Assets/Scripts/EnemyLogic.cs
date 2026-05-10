@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemyLogic : MonoBehaviour
 {
     [SerializeField] private Animator animator;
+    private bool HitOnce = true;
 
     private void Awake()
     {
@@ -18,7 +19,8 @@ public class EnemyLogic : MonoBehaviour
     {
         //add animation and sfx here
         animator.SetTrigger("Hit");
-        EndGame_Manager.Instance.Kill();
+        if (HitOnce) EndGame_Manager.Instance.Kill();
+        HitOnce = false;
     }
 
     private IEnumerator Delay(float seconds)

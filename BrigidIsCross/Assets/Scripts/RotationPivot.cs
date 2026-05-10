@@ -25,6 +25,7 @@ public class RotationPivot : MonoBehaviour
             }
             else
             {
+                Debug.Log("Touch fail");
                 return;
             }
 
