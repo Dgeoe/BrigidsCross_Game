@@ -54,4 +54,20 @@ public class ScenePlayer : MonoBehaviour
         yield return new WaitForSeconds(1.5f);
         g.SetActive(true);
     }
+
+    public void RePlay()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void BackToMain()
+    {
+        SceneManager.LoadScene("Menu");
+    }
+
+    public void NextLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
+
 }
