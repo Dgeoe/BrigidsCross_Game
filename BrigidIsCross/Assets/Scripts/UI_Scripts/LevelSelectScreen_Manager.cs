@@ -22,8 +22,8 @@ public class LevelSelectScreen_Manager : MonoBehaviour
     {
         int sceneCount = SceneManager.sceneCountInBuildSettings;
 
-        // Skip first 2 scenes (Device Check & Main Menu)
-        for (int i = 2; i < sceneCount; i++)
+        // Skip first 2 scenes (Device Check & Main Menu) and stop before last scene (thanks for playing)
+        for (int i = 2; i < sceneCount - 1; i++)
         {
             int adjustedIndex = i - 2;
 
@@ -33,6 +33,7 @@ public class LevelSelectScreen_Manager : MonoBehaviour
             Vector2 pos = new Vector2(StartPos.anchoredPosition.x + (column * xSpacing), StartPos.anchoredPosition.y - (row * ySpacing));
 
             GameObject buttonObj = Instantiate(Prefab, StartPos.parent);
+            buttonObj.GetComponent<LevelButtonData>().sceneIndex = i;
             RectTransform rect = buttonObj.GetComponent<RectTransform>();
             rect.anchoredPosition = pos;
 

@@ -35,7 +35,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 150, y: 100}
+  m_SizeDelta: {x: 130, y: 130}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &255625912039299528
 CanvasRenderer:
@@ -298,6 +298,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dec9666e55119014ab04ce41ff04ddc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LevelButtonData
+  sceneIndex: 0
   score: 0
   completed: 0
   completedPrior: 0
@@ -307,6 +308,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: c45237387bbc93246a19d25c403227b2, type: 3}
   - {fileID: 21300000, guid: 9d79f1e5754b8fb48998a0e3bd2338ba, type: 3}
   - {fileID: 21300000, guid: a94787e81f454a24b99fdca63a4bd09a, type: 3}
+  - {fileID: 21300000, guid: 2cb2f47a063d01f42b167653d0531443, type: 3}
   - {fileID: 21300000, guid: 2cb2f47a063d01f42b167653d0531443, type: 3}
   wrongSFX: {fileID: 8300000, guid: 4591fb53efc5df1429f4fb7e90f92700, type: 3}
 --- !u!82 &4716839535146957197

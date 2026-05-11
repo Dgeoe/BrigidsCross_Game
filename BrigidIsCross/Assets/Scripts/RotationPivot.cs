@@ -1,6 +1,7 @@
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Collections;
 
 public class RotationPivot : MonoBehaviour
 {
@@ -10,47 +11,52 @@ public class RotationPivot : MonoBehaviour
     [SerializeField] Camera mainCamera;
     [SerializeField] LayerMask groundLayer;
 
+    private void Start()
+    {
+        StartCoroutine(DelayInputAccess());
+    }
+
     void Update()
     {
+        Vector2 screenPosition;
+
+        if (Application.isMobilePlatform)
         {
-            Vector2 screenPosition;
-
-            if (Touchscreen.current != null && Touchscreen.current.primaryTouch.press.isPressed)
-            {
-                screenPosition = Touchscreen.current.primaryTouch.position.ReadValue();
-            }
-            else if (Mouse.current != null)
-            {
-                screenPosition = Mouse.current.position.ReadValue();
-            }
-            else
-            {
-                Debug.Log("Touch fail");
-                return;
-            }
-
-            Ray ray = mainCamera.ScreenPointToRay(screenPosition);
-
-            if (Physics.Raycast(ray, out RaycastHit hit, 100f, groundLayer))
-            {
-                Vector3 targetPosition = hit.point;
-                Vector3 direction = targetPosition - transform.position;
-                direction.y = 0f;
-
-                if (direction != Vector3.zero)
-                {
-                    Quaternion lookRotation = Quaternion.LookRotation(direction);
-                    transform.rotation = Quaternion.Euler(0f, lookRotation.eulerAngles.y, 0f);
-                }
-                else
-                {
-                    return;
-                }
-            }
-            else
+            if (Touchscreen.current == null || !Touchscreen.current.primaryTouch.press.isPressed)
             {
                 return;
+            }
+
+            screenPosition = Touchscreen.current.primaryTouch.position.ReadValue();
+        }
+
+        else
+        {
+            if (Mouse.current == null) return;
+
+            screenPosition = Mouse.current.position.ReadValue();
+        }
+
+        Ray ray = mainCamera.ScreenPointToRay(screenPosition);
+
+        if (Physics.Raycast(ray, out RaycastHit hit, 100f, groundLayer))
+        {
+            Vector3 direction = hit.point - transform.position;
+
+            direction.y = 0f;
+
+            if (direction != Vector3.zero)
+            {
+                Quaternion lookRotation = Quaternion.LookRotation(direction);
+
+                transform.rotation = Quaternion.Euler(0f, lookRotation.eulerAngles.y, 0f);
             }
         }
+    }
+
+    private IEnumerator DelayInputAccess()
+    {
+        yield return new WaitForSeconds(2f);
+        Throw.Instance.waitTime = true;
     }
 }

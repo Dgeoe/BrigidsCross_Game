@@ -13,6 +13,7 @@ public class Throw : MonoBehaviour
     public static Throw Instance;
 
     private bool wasPressing;
+    public bool waitTime = false;
 
     private void Awake()
     {
@@ -23,25 +24,26 @@ public class Throw : MonoBehaviour
     {
         bool isPressing = false;
 
-        // Mobile
-        if (Touchscreen.current != null)
+        if (Application.isMobilePlatform)
         {
-            isPressing =
-                Touchscreen.current.primaryTouch.press.isPressed;
+            if (Touchscreen.current != null)
+            {
+                isPressing = Touchscreen.current.primaryTouch.press.isPressed;
+            }
         }
-        // Desktop
-        else if (Mouse.current != null)
+        else
         {
-            isPressing = Mouse.current.leftButton.isPressed;
+            if (Mouse.current != null)
+            {
+                isPressing = Mouse.current.leftButton.isPressed;
+            }
         }
 
-        // PRESS START
         if (isPressing && !wasPressing)
         {
             BeginAim();
         }
 
-        // RELEASE
         if (!isPressing && wasPressing)
         {
             ReleaseThrow();
@@ -86,49 +88,34 @@ public class Throw : MonoBehaviour
 
         Destroy(ProjectileCount.Instance.crosses[shurikens]);
 
-        firePoint.gameObject.SetActive(false);
-
         RaycastHit hit;
 
-        if (Physics.Raycast(
-            firePoint.position,
-            firePoint.forward,
-            out hit,
-            Mathf.Infinity))
+        if (Physics.Raycast(firePoint.position, firePoint.forward, out hit, Mathf.Infinity))
         {
-            Vector3 direction =
-                (hit.point - firePoint.position).normalized;
+            Vector3 direction = (hit.point - firePoint.position).normalized;
 
-            GameObject projectile = Instantiate(
-                projectilePrefab,
-                firePoint.position,
-                Quaternion.identity);
+            GameObject projectile = Instantiate(projectilePrefab, firePoint.position, Quaternion.identity);
 
-            projectile.GetComponent<ProjectileLogic>()
-                .Initialize(direction);
+            projectile.GetComponent<ProjectileLogic>().Initialize(direction);
         }
+
+        firePoint.gameObject.SetActive(false);
 
         audioSource.volume -= 0.3f;
 
-        if (audioSource.volume <= 0)
-            audioSource.volume = 0.3f;
+        if (audioSource.volume <= 0) audioSource.volume = 0.3f;
 
         audioSource.PlayOneShot(throwSound);
-
         animator.SetTrigger("Throw");
     }
 
     private bool IsTouchOverUI()
     {
-        if (EventSystem.current == null)
-            return false;
+        if (EventSystem.current == null) return false;
 
-        if (Touchscreen.current != null &&
-            Touchscreen.current.primaryTouch.press.isPressed)
+        if (Touchscreen.current != null && Touchscreen.current.primaryTouch.press.isPressed)
         {
-            return EventSystem.current.IsPointerOverGameObject(
-                Touchscreen.current.primaryTouch.touchId.ReadValue()
-            );
+            return EventSystem.current.IsPointerOverGameObject(Touchscreen.current.primaryTouch.touchId.ReadValue());
         }
 
         return EventSystem.current.IsPointerOverGameObject();

@@ -107,6 +107,7 @@ public class EndGame_Manager : MonoBehaviour
 
     private IEnumerator PrintScore(int score)
     {
+        if (SaveSystem.Instance != null) SaveSystem.Instance.CompleteLevel(UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex, score);
         yield return new WaitForSeconds(3f);
 
         switch (score)

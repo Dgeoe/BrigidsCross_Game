@@ -2,41 +2,38 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-
 public class LevelButtonData : MonoBehaviour
 {
+    public int sceneIndex;
+
     public int score = 0;
     public bool completed = false;
     public bool completedPrior = false;
+
     [SerializeField] private GameObject ScoreImage;
     [SerializeField] private Sprite[] sprites;
     [SerializeField] private AudioClip wrongSFX;
 
-    private void Awake()
+    private void Start()
     {
+        score = SaveSystem.Instance.GetLevelScore(sceneIndex);
+        completed = SaveSystem.Instance.IsLevelBeaten(sceneIndex);
+        completedPrior = SaveSystem.Instance.IsLevelUnlocked(sceneIndex);
+
+        ScoreImage.SetActive(completed);
         if (completed)
         {
-            ScoreImage.SetActive(true);
+            Image image = ScoreImage.GetComponent<Image>();
 
-            switch (score)
+            score = Mathf.Clamp(score, 0, 4);
+
+            if (score == 0) image.sprite = sprites[score];
+            else
             {
-                case 0:
-                    ScoreImage.GetComponent<Image>().sprite = sprites[0];
-                    return;
-                case 1:
-                    ScoreImage.GetComponent<Image>().sprite = sprites[1];
-                    return;
-                case 2:
-                    ScoreImage.GetComponent<Image>().sprite = sprites[2];
-                    return;
-                case 3:
-                    ScoreImage.GetComponent<Image>().sprite = sprites[3];
-                    return;
-                case 4:
-                    ScoreImage.GetComponent<Image>().sprite = sprites[4];
-                    return;
+                image.sprite = sprites[score+1];
             }
 
+            if (score == 4) image.color = new Color32(255, 215, 0, 255);
         }
     }
 
@@ -44,13 +41,11 @@ public class LevelButtonData : MonoBehaviour
     {
         if (completedPrior)
         {
-            string s = gameObject.name;
-            SceneManager.LoadScene(s);
+            SceneManager.LoadScene(sceneIndex);
         }
         else
         {
-            gameObject.GetComponent<AudioSource>().PlayOneShot(wrongSFX);
+            GetComponent<AudioSource>().PlayOneShot(wrongSFX);
         }
     }
-
 }
