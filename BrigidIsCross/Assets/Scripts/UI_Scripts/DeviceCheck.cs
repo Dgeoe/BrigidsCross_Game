@@ -30,6 +30,7 @@ public class DeviceCheck : MonoBehaviour
     private IEnumerator LoadNextSceneAfterDelay()
     {
         Debug.Log("Loading on Mobile");
+        mobileMessageObject.SetActive(true);
         yield return new WaitForSeconds(mobileDelay);
         LoadNextScene();
     }

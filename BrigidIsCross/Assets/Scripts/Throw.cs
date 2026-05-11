@@ -46,8 +46,7 @@ public class Throw : MonoBehaviour
 
     private void OnPress(InputAction.CallbackContext ctx)
     {
-        if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject()) return;
-        //if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject(Touchscreen.current.primaryTouch.touchId.ReadValue())) return;
+        if (IsTouchOverUI()) return;
 
         //Enable Throw Point
         if (shurikens > 0) firePoint.gameObject.SetActive(true);
@@ -59,8 +58,7 @@ public class Throw : MonoBehaviour
     private void OnRelease(InputAction.CallbackContext ctx)
     {
         animator.SetBool("Aiming", false);
-        if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject()) return;
-        //if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject(Touchscreen.current.primaryTouch.touchId.ReadValue())) return;
+        if (IsTouchOverUI()) return;
 
         //Fire Projectile
         if (shurikens > 0)
@@ -98,5 +96,24 @@ public class Throw : MonoBehaviour
         audioSource.PlayOneShot(throwSound);
         animator.SetTrigger("Throw");
         animator.SetBool("Aiming", false);
+    }
+
+
+    private bool IsTouchOverUI()
+    {
+        if (EventSystem.current == null)
+            return false;
+
+        // Mobile touch
+        if (Touchscreen.current != null &&
+            Touchscreen.current.primaryTouch.press.isPressed)
+        {
+            return EventSystem.current.IsPointerOverGameObject(
+                Touchscreen.current.primaryTouch.touchId.ReadValue()
+            );
+        }
+
+        // Mouse/Desktop
+        return EventSystem.current.IsPointerOverGameObject();
     }
 }
